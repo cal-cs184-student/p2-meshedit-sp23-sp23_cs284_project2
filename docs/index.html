@@ -227,19 +227,18 @@
   and <kbd>vertex()</kbd> functions to traverse all the faces connected to the vertex and 
   find the corresponding halfedges to calculate their normals.
 </p>
-<div align="middle">
-  <table style="width=100%">
-    <tr>
-      <td>
-        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F78ea2cc5-72d2-41a7-870b-0d02c56a4223%2FUntitled.png?id=df8a14e2-5ddd-4257-926e-163afa22c712&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
-        <figcaption align="middle">Teapot shading without vertex normals (flat shading)</figcaption>
-      </td>
-      <td>
-        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F367e18dc-804a-4a53-9a4c-064b150c4674%2FUntitled.png?id=3a97033b-3a6c-41bd-aacb-0c04b88dec08&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
-        <figcaption align="middle">Teapot shading with area-weighted vertex normals (Phong shading)</figcaption>
-      </td>
-    </tr>
-  </table>
+<table style="width:100%">
+  <tr align="center">
+    <td>
+      <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F78ea2cc5-72d2-41a7-870b-0d02c56a4223%2FUntitled.png?id=df8a14e2-5ddd-4257-926e-163afa22c712&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+      <figcaption align="middle">Teapot shading without vertex normals (flat shading)</figcaption>
+    </td>
+    <td>
+      <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F367e18dc-804a-4a53-9a4c-064b150c4674%2FUntitled.png?id=3a97033b-3a6c-41bd-aacb-0c04b88dec08&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+      <figcaption align="middle">Teapot shading with area-weighted vertex normals (Phong shading)</figcaption>
+    </td>
+  </tr>
+</table>
 <!-- <p>
     YOUR RESPONSE GOES HERE
 </p>
@@ -258,7 +257,7 @@
 </p>
 <div align="middle">
   <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff8fa965d-2954-4f63-9cb5-b8edc522864a%2FIMG_2B0921822E78-1.jpeg?id=6db714d2-dcfe-46b1-ae0d-92d8e5032dab&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="600px"/>
-  <figcaption align="middle">In our implementation, we first collected all the relevant halfedges pointers. Then, we updated everything, including member variables of the faces, edges, halfedges, and vertices according to the diagram below. In the edge flip operation, we didn’t need to create any new faces, edges, or vertices. Fortunately, we didn’t encounter any major difficulties because we had gone through the whole process in pen and paper prior to code implementation.</figcaption>
+  <figcaption align="middle">Edge flip and updating variables</figcaption>
 </div>
 <br>
 

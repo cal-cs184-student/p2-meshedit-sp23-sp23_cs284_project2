@@ -18,12 +18,15 @@
   kbd {
     color: #121212;
   }
+  figcaption {
+    color: gray;
+  }
 </style>
 <title>CS 184 Mesh Edit</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro" rel="stylesheet">
 
-<script>
+<!-- <script>
   MathJax = {
     tex: {
       inlineMath: [['$', '$'], ['\\(', '\\)']]
@@ -32,16 +35,18 @@
 </script>
 <script id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
+</script> -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
 
 
 <body>
 
-<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2018</h1>
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2023</h1>
 <h1 align="middle">Project 2: Mesh Edit</h1>
-<h2 align="middle">YOUR NAME</h2>
+<h2 align="middle">I-Lun Tsai, Hsuan-Hao Wang</h2>
 
 <br><br>
 
@@ -49,7 +54,19 @@
 
 <h2 align="middle">Overview</h2>
 <p>
-    YOUR RESPONSE GOES HERE
+  Our project objective was to implement mesh operations that were mentioned in lectures, 
+  such as evaluating Bezier curves, Bezier surfaces, and working with traingular meshes. 
+  Specifically, we made use of de Casteljau's Algorithm to form Bezier curves from input 
+  control points and extended this to 3 dimensional space to create Bezier surfaces. For 
+  the second part of this project, we implemented area-weighted vertex normals, edge flips,
+   edge splits, and loop subdivisions for upsampling on triangle meshes. We utilized a 
+   halfedge data structure to represent triangle meshes on which all our implementations 
+   are based. We encountered some difficulties clarifying the numerous pointer reassignments 
+   for edge flips and splits. Mesh upsampling was also a challenge which required us to break 
+   it down into simpler steps, such as computing the updated vertex positions, split edges,
+    flip new edges, which made use of the functions we completed in previous tasks. Overall
+    , we gained a better understanding of the implementation details for the mesh operations
+     described in class.
 </p>
 <br>
 
@@ -60,10 +77,20 @@
 
 
 <b>
-  Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.
+  De Casteljau's algorithm is a recursive algorithm for evaluating Bézier curves. 
+  The algorithm works by repeatedly subdividing the line segments formed by a set of 
+  control points. At each level of recursion, the algorithm computes a new set 
+  of control points (one less than the previous level) by computing the linear 
+  interpolation of points on the previous level. Ultimately, points on the curve are 
+  defined by varying parameter t from \(0 \to 1\) on the level of subdivision at which only 
+  one control point is remaining.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  In our implementation, we take in the vector of n control points and evaluate a single 
+  step of subdivision by finding the linear interpolation of two consecutive control points.
+   As a result, we will have a vector of (\(n-1\)) new control points. We use the equation below:
+   <br>
+   \(P_{new} = (1-t) \times P_0 + t \times P_1\)
 </p>
 <br>
 
@@ -88,43 +115,49 @@
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 0</figcaption>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fad5c16d1-e6e3-4baa-93ea-ac09d17be102%2FUntitled.png?id=2e5362ac-92e0-4158-9308-571be286f1d4&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Level 0 de Casteljau Subdivision</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 1</figcaption>
-      </td>
-    </tr>
-    <br>
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 2</figcaption>
-      </td>
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 3</figcaption>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fbd612fb5-f2ae-455c-aa3d-493392f1ab9b%2FUntitled.png?id=c46885fb-786f-4b57-aaf6-4320fe7c370d&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Level 1 de Casteljau Subdivision</figcaption>
       </td>
     </tr>
     <br>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 4</figcaption>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fb3e2dcaf-7a8f-433e-9d0e-1b48e7a9ef3d%2FUntitled.png?id=b9985223-0230-4306-b020-900fcdffa930&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Level 2 de Casteljau Subdivision</figcaption>
+      </td>
+      <td>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff566c7ee-479f-4a4a-84ee-176ba32eb634%2FUntitled.png?id=d16ce3ce-4ea0-4654-b771-bf62547a9cee&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Level 3 de Casteljau Subdivision</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr align="center">
+      <td>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fe534e09a-c78b-4d99-ad97-22f665a97a1d%2FUntitled.png?id=f0f15bc4-2f4d-490b-a82b-edd0f0290aca&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Level 4 de Casteljau Subdivision with completed Bezier curve</figcaption>
+      </td>
+      <td>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6ce4f9ac-b7b1-45e3-8072-3c322023359b%2FUntitled.png?id=d83013c9-e0e5-4c8e-8945-749db656c570&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Different set of control points \((t = {1 \over 5})\)</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr align="center">
+      <td>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0db63d0e-1f82-450e-bd50-e4bb99f3a86d%2FUntitled.png?id=931d9e19-18e7-486b-a641-da8035d9dd2f&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption>Different set of control points \((t = {4 \over 5})\)</figcaption>
+      </td>
+      <td>
+        <video src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b7f8d86-00f0-4cd2-be5e-c7a7366b61c3/Screen_Recording_2023-02-23_at_4.51.34_PM.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230226%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230226T011703Z&X-Amz-Expires=86400&X-Amz-Signature=1d52e7dd25181f9f616a29f0b14cb418f858ff6070845946e76b1b4f54b8a020&X-Amz-SignedHeaders=host&x-id=GetObject" align="middle" width="400px"/ autoplay>
+        <figcaption>Different set of control points with varying parameter \(t\)</figcaption>
       </td>
     </tr>
   </table>
 </div>
-<br>
-
-
-<b>
-  Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter \(t\) via mouse scrolling.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>  
 <br>
 
 

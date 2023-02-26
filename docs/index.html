@@ -76,7 +76,7 @@
 <h3 align="middle">Part 1: Bezier Curves with 1D de Casteljau Subdivision</h3>
 
 
-<b>
+<p>
   De Casteljau's algorithm is a recursive algorithm for evaluating Bézier curves. 
   The algorithm works by repeatedly subdividing the line segments formed by a set of 
   control points. At each level of recursion, the algorithm computes a new set 
@@ -84,7 +84,7 @@
   interpolation of points on the previous level. Ultimately, points on the curve are 
   defined by varying parameter \(t\) from \(0 \to 1\) on the level of subdivision at which only 
   one control point is remaining.
-</b>
+</p>
 <p>
   In our implementation, we take in the vector of n control points and evaluate a single 
   step of subdivision by finding the linear interpolation of two consecutive control points.
@@ -170,7 +170,7 @@
 
 
 <h3 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h3>
-<b>
+<p>
   Bezier surfaces are two-dimensional parametric surfaces defined by a set of 
   control points, \(4 \times 4 = 16 \) points for our implementation, in 3D space. 
   To evaluate a Bezier surface at a particular parameter value, we can visualize it 
@@ -179,14 +179,14 @@
   Bezier curves are evaluated using the de Casteljau algorithm. New control points, 
   one from each Bezier curve, are then used to sweep through and form the desired 
   Bezier surface.
-</b>
+</p>
 <p>
   In our implementation, we evaluate the Bezier surface for a surface position at 
   parameters \((u, v)\) using the separable 1D de Casteljau algorithm. First, we 
   find the Bezier curve parameterized by \(u\) for each of the 4 Bezier curves in 
   the \(u\) direction. We then evaluate the 4 points, one from each Bezier curve, 
   with the same parameterization and use 1D de Casteljau algorithm with 
-  parameterization \(u\) to find a point on the Bezier surface.
+  parameterization \(v\) to find a point on the Bezier surface.
 </p>
 <br>
 
@@ -208,31 +208,58 @@
 
 <h3 align="middle">Part 3: Area-Weighted Vertex Normals</h3>
 
-<b>
+<!-- <b>
   Briefly explain how you implemented the area-weighted vertex normals.
-</b>
+</b> -->
 <p>
-    YOUR RESPONSE GOES HERE
+  Area-weighted vertex normal is one way to calculate the normal vector at each vertex of a 
+  3D mesh. To calculate the area-weighted vertex normal, we first computed the normal for 
+  each face of the mesh by using the cross product of two vectors that lie on the face. Once 
+  you have the normal for each face, you can calculate the normal for each vertex by averaging 
+  the face normals, which are weighted by the area of their face, of all the faces that share 
+  that vertex.
 </p>
 <br>
 
 
-<b>
-  Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.
-</b>
 <p>
+  In our implementation, we can use a halfedge's <kbd>next()</kbd>, <kbd>twin()</kbd>, 
+  and <kbd>vertex()</kbd> functions to traverse all the faces connected to the vertex and 
+  find the corresponding halfedges to calculate their normals.
+</p>
+<div align="middle">
+  <table style="width=100%">
+    <tr>
+      <td>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F78ea2cc5-72d2-41a7-870b-0d02c56a4223%2FUntitled.png?id=df8a14e2-5ddd-4257-926e-163afa22c712&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption align="middle">Teapot shading without vertex normals (flat shading)</figcaption>
+      </td>
+      <td>
+        <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F367e18dc-804a-4a53-9a4c-064b150c4674%2FUntitled.png?id=3a97033b-3a6c-41bd-aacb-0c04b88dec08&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+        <figcaption align="middle">Teapot shading with area-weighted vertex normals (Phong shading)</figcaption>
+      </td>
+    </tr>
+  </table>
+<!-- <p>
     YOUR RESPONSE GOES HERE
 </p>
-<br>
+<br> -->
 
 
 <h3 align="middle">Part 4: Edge Flip</h3>
-<b>
-  Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
-</b>
+<!-- < > -->
 <p>
-    YOUR RESPONSE GOES HERE
+  In our implementation, we first collected all the relevant halfedges pointers. 
+  Then, we updated everything, including member variables of the faces, edges, halfedges, 
+  and vertices according to the diagram below. In the edge flip operation, we didn’t need 
+  to create any new faces, edges, or vertices. Fortunately, we didn’t encounter any major 
+  difficulties because we had gone through the whole process in pen and paper prior to code 
+  implementation.
 </p>
+<div align="middle">
+  <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff8fa965d-2954-4f63-9cb5-b8edc522864a%2FIMG_2B0921822E78-1.jpeg?id=6db714d2-dcfe-46b1-ae0d-92d8e5032dab&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="600px"/>
+  <figcaption align="middle">In our implementation, we first collected all the relevant halfedges pointers. Then, we updated everything, including member variables of the faces, edges, halfedges, and vertices according to the diagram below. In the edge flip operation, we didn’t need to create any new faces, edges, or vertices. Fortunately, we didn’t encounter any major difficulties because we had gone through the whole process in pen and paper prior to code implementation.</figcaption>
+</div>
 <br>
 
 
@@ -245,13 +272,13 @@
 <br>
 
 
-<b>
+<!-- <b>
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
     YOUR RESPONSE GOES HERE
 </p>
-<br>
+<br> -->
 
 
 <h3 align="middle">Part 5: Edge Split</h3>

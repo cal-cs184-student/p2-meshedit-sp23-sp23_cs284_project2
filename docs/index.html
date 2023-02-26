@@ -82,7 +82,7 @@
   control points. At each level of recursion, the algorithm computes a new set 
   of control points (one less than the previous level) by computing the linear 
   interpolation of points on the previous level. Ultimately, points on the curve are 
-  defined by varying parameter t from \(0 \to 1\) on the level of subdivision at which only 
+  defined by varying parameter \(t\) from \(0 \to 1\) on the level of subdivision at which only 
   one control point is remaining.
 </b>
 <p>
@@ -90,17 +90,17 @@
   step of subdivision by finding the linear interpolation of two consecutive control points.
    As a result, we will have a vector of (\(n-1\)) new control points. We use the equation below:
    <br>
-   \(P_{new} = (1-t) \times P_0 + t \times P_1\)
+   \[P_{new} = (1-t) \times P_0 + t \times P_1\]
 </p>
 <br>
 
 
-<b>
+<!-- <b>
   Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.
 </b>
 <p>
     YOUR RESPONSE GOES HERE
-</p>
+</p> -->
 <!-- Example of including a single figure -->
 <div align="middle">
   <img src="images/your_file.png" align="middle" width="50%">
@@ -152,13 +152,20 @@
         <figcaption>Different set of control points \((t = {4 \over 5})\)</figcaption>
       </td>
       <td>
-        <video src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b7f8d86-00f0-4cd2-be5e-c7a7366b61c3/Screen_Recording_2023-02-23_at_4.51.34_PM.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230226%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230226T011703Z&X-Amz-Expires=86400&X-Amz-Signature=1d52e7dd25181f9f616a29f0b14cb418f858ff6070845946e76b1b4f54b8a020&X-Amz-SignedHeaders=host&x-id=GetObject" align="middle" width="400px"/ autoplay>
+        <video loop src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b7f8d86-00f0-4cd2-be5e-c7a7366b61c3/Screen_Recording_2023-02-23_at_4.51.34_PM.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230226%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230226T011703Z&X-Amz-Expires=86400&X-Amz-Signature=1d52e7dd25181f9f616a29f0b14cb418f858ff6070845946e76b1b4f54b8a020&X-Amz-SignedHeaders=host&x-id=GetObject" align="middle" width="400px"/ autoplay muted>
         <figcaption>Different set of control points with varying parameter \(t\)</figcaption>
       </td>
     </tr>
   </table>
 </div>
 <br>
+<!-- <b>
+  Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter \(t\) via mouse scrolling.
+</b>
+<p>
+    YOUR RESPONSE GOES HERE
+</p>  
+<br> -->
 
 
 <h3 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h3>

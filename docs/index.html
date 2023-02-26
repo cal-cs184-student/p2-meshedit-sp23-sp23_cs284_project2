@@ -102,14 +102,14 @@
     YOUR RESPONSE GOES HERE
 </p> -->
 <!-- Example of including a single figure -->
-<div align="middle">
+<!-- <div align="middle">
   <img src="images/your_file.png" align="middle" width="50%">
 </div>
 <br>
 
 <b>
   Show screenshots of each step / level of the evaluation from the original control points down to the final evaluated point. Press <kbd>E</kbd> to step through. Toggle <kbd>C</kbd> to show the completed Bezier curve as well.
-</b>
+</b> -->
 <!-- Example of including multiple figures -->
 <div align="middle">
   <table style="width:100%">
@@ -153,7 +153,8 @@
       </td>
       <td>
         <video loop src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b7f8d86-00f0-4cd2-be5e-c7a7366b61c3/Screen_Recording_2023-02-23_at_4.51.34_PM.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230226%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230226T011703Z&X-Amz-Expires=86400&X-Amz-Signature=1d52e7dd25181f9f616a29f0b14cb418f858ff6070845946e76b1b4f54b8a020&X-Amz-SignedHeaders=host&x-id=GetObject" align="middle" width="400px"/ autoplay muted>
-        <p>Different set of control points with varying parameter \(t\)</p>
+          <!-- TODO: Fuck! this is not showing -->
+        <figcaption>Different set of control points with varying parameter \(t\)</figcaption>
       </td>
     </tr>
   </table>
@@ -170,21 +171,37 @@
 
 <h3 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h3>
 <b>
-  Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.
+  Bezier surfaces are two-dimensional parametric surfaces defined by a set of 
+  control points, \(4 \times 4 = 16 \) points for our implementation, in 3D space. 
+  To evaluate a Bezier surface at a particular parameter value, we can visualize it 
+  as 4 Bezier curves in one direction from which 4 "moving curves" in the other 
+  direction can be defined by the de Casteljau algorithm. Specifically, the 4 
+  Bezier curves are evaluated using the de Casteljau algorithm. New control points, 
+  one from each Bezier curve, are then used to sweep through and form the desired 
+  Bezier surface.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  In our implementation, we evaluate the Bezier surface for a surface position at 
+  parameters \((u, v)\) using the separable 1D de Casteljau algorithm. First, we 
+  find the Bezier curve parameterized by \(u\) for each of the 4 Bezier curves in 
+  the \(u\) direction. We then evaluate the 4 points, one from each Bezier curve, 
+  with the same parameterization and use 1D de Casteljau algorithm with 
+  parameterization \(u\) to find a point on the Bezier surface.
 </p>
 <br>
 
+<div align="middle">
+  <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Ff569438c-2267-415e-ad2d-fd21133001d2%2FUntitled.png?id=5ca28e8c-3b89-4867-a108-a009a6a1dc3b&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=1970&userId=&cache=v2" align="middle" width="600px"/>
+  <figcaption align="middle">Teapot with Bezier surfaces generated from Separable 1D de Casteljau</figcaption>
+</div>
 
-<b>
+<!-- <b>
   Show a screenshot of bez/teapot.bez (not .dae) evaluated by your implementation.
 </b>
 <p>
     YOUR RESPONSE GOES HERE
 </p>
-<br>
+<br> -->
 
 
 <h2 align="middle">Section II: Triangle Meshes and Half-Edge Data Structure</h2>

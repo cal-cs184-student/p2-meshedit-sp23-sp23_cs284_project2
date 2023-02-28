@@ -152,7 +152,7 @@
         <figcaption>Different set of control points \((t = {4 \over 5})\)</figcaption>
       </td>
       <td>
-        <video loop src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b7f8d86-00f0-4cd2-be5e-c7a7366b61c3/Screen_Recording_2023-02-23_at_4.51.34_PM.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230226%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230226T011703Z&X-Amz-Expires=86400&X-Amz-Signature=1d52e7dd25181f9f616a29f0b14cb418f858ff6070845946e76b1b4f54b8a020&X-Amz-SignedHeaders=host&x-id=GetObject" align="middle" width="400px"/ autoplay muted>
+        <video loop src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1b7f8d86-00f0-4cd2-be5e-c7a7366b61c3/Screen_Recording_2023-02-23_at_4.51.34_PM.mov?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230228%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230228T193056Z&X-Amz-Expires=86400&X-Amz-Signature=1a620982e7cc43165ac693615014841f271d6768a539a0d06b19dd2e2fda2821&X-Amz-SignedHeaders=host&x-id=GetObject" align="middle" width="400px"/ autoplay muted>
           <!-- TODO: Fuck! this is not showing -->
         <figcaption>Different set of control points with varying parameter \(t\)</figcaption>
       </td>
@@ -292,19 +292,52 @@
 
 
 <h3 align="middle">Part 5: Edge Split</h3>
-<b>
+<!-- <b>
   Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
-</b>
+</b> -->
 <p>
-    YOUR RESPONSE GOES HERE
+  A triangular mesh can undergo an edge split, which generates a new vertex and either 3 or 4 
+  new edges depending on whether the original edge is deleted or not. To carry out this operation, 
+  We followed the same approach as with the edge flip by gathering relevant pointers and 
+  reassigning them. The process went smoothly with minimal debugging issues and no typos. 
+  Although it's possible to split a boundary edge (as opposed to flipping it), we did not include 
+  this feature in my implementation.
 </p>
 <br>
 
+<table style="width:100%">
+  <tr align="center">
+    <td>
+      <img src="./images/p5_before.png" align="middle" width="400px"/>
+      <figcaption align="middle">Before edge split</figcaption>
+    </td>
+    <td>
+      <img src="./images/p5_split.png" align="middle" width="400px"/>
+      <figcaption align="middle">After splitting some edges on the left side of the cow's head</figcaption>
+    </td>
+  </tr>
+</table>
 
-<b>
+<br>
+
+<table style="width:100%">
+  <tr align="center">
+    <td>
+      <img src="./images/p5_before.png" align="middle" width="400px"/>
+      <figcaption align="middle">Before edge split and flip</figcaption>
+    </td>
+    <td>
+      <img src="./images/p5_split_flip.png" align="middle" width="400px"/>
+      <figcaption align="middle">After splitting and flipping some edges on the left side of the cow's head</figcaption>
+    </td>
+  </tr>
+</table>
+
+
+<!-- <b>
     Show screenshots of a mesh before and after some edge splits. 
-</b>
-<p>
+</b> -->
+<!-- <p>
     YOUR RESPONSE GOES HERE
 </p>
 <br>
@@ -334,7 +367,7 @@
 <p>
     YOUR RESPONSE GOES HERE
 </p>
-<br>
+<br> -->
 
 
 <h3 align="middle">Part 6: Loop Subdivision for Mesh Upsampling</h3>

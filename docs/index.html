@@ -371,43 +371,101 @@
 
 
 <h3 align="middle">Part 6: Loop Subdivision for Mesh Upsampling</h3>
-<b>
+<!-- <b>
   Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
-</b>
+</b> -->
 <p>
-    YOUR RESPONSE GOES HERE
+  The loop subdivision process for our triangle meshes involves splitting the current 
+  edges and flipping any edges that touch both old and new edges to create a more 
+  uniform mesh. This process leads to a mesh with a smoother, rounder appearance and 
+  significantly higher resolution compared to the original rough base mesh.
 </p>
 <br>
 
+<table style="width:100%">
+  <tr align="center">
+    <td>
+      <img src="./images/p6_before.png" align="middle" width="400px"/>
+      <figcaption align="middle">Before upsampling</figcaption>
+    </td>
+    <td>
+      <img src="./images/p6_upsample.png" align="middle" width="400px"/>
+      <figcaption align="middle">After upsampling</figcaption>
+    </td>
+  </tr>
+</table>
 
-<b>
+
+<!-- <b>
   Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
-</b>
+</b> -->
 <p>
-    YOUR RESPONSE GOES HERE
+  To start the implementation of loop subdivision, we first computed and stored the 
+  positions of new vertices that will be created from both the current vertices and the 
+  vertices that will be generated during the edge-splitting process. These new vertex 
+  positions were determined by a calculation:
+  \[(1 - n \cdot u) \times (Original\_Position) + u \times (Original\_Neighbor\_Position\_Sum)\]
+  The value of \(n\) refers to the degree of the vertex, while \(u\) is either \(3 \over 16\) if 
+  \(n\) is equal to 3 or \(3 \over 8n\) if n is not 3. The new vertex created by 
+  splitting an edge AB has a position of:
+  \[{3 \over 8} \times \ (A + B) + {1 \over 8} \times (C + D)\]
+</p>
+
+<p>
+  While calculating the new vertex positions, we use vertices C and D that are located 
+  on the opposite sides of edge AB. As we iterate through the mesh's vertices and edges 
+  to compute these new positions, we mark the vertices and edges as not new so that 
+  later flipping can work correctly. Then, we split the original edges of the mesh, 
+  setting the newly created vertex as new. We assign the new position field of each 
+  newly created mesh to the current edge's new position. Some of the newly created 
+  edges are marked new and some are marked not new based on whether they match the 
+  old edge pre-split. To accomplish this, we use the halfedge structure to select the 
+  edges we want. we then flip edges if they connect both old and new vertices to 
+  regularize the mesh triangles. Finally, iterate through all vertices again and set
+   their current position to the stored position in their new position field.
 </p>
 <br>
+<table style="width:100%">
+  <tr align="center">
+    <td>
+      <img src="./images/p6_cube.png" align="middle" width="400px"/>
+      <figcaption align="middle">dae/cube.dae</figcaption>
+    </td>
+    <td>
+      <img src="./images/p6_cube_2.png" align="middle" width="400px"/>
+      <figcaption align="middle">Upsampled dae/cube.dae twice</figcaption>
+    </td>
+    <td>
+      <img src="./images/p6_cube_6.png" align="middle" width="400px"/>
+      <figcaption align="middle">Upsampled dae/cube.dae six times</figcaption>
+    </td>
+  </tr>
+</table>
 
 
-<b>
+<!-- <b>
   Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.
-</b>
+</b> -->
 <p>
-    YOUR RESPONSE GOES HERE
+  As previously discussed, the loop subdivision technique results in a smoother and 
+  more rounded object. This effect is evident in the cube.dae file, where even one 
+  iteration of subdivision significantly reduces the mesh's volume. However, after 
+  multiple subdivisions, the resulting mesh becomes lumpy and uneven, mainly due to 
+  the asymmetrical edge splitting of the original cube mesh.
 </p>
 <br>
 
 
-<b>
+<!-- <b>
     If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.
 </b>
 <p>
     YOUR RESPONSE GOES HERE
 </p>
-<br>
+<br> -->
 
 
-<h3 align="middle">Part 7 (Optional, Possible Extra Credit)</h3>
+<!-- <h3 align="middle">Part 7 (Optional, Possible Extra Credit)</h3>
 <b>
     Save your best polygon mesh as partsevenmodel.dae in your docs folder and show us a screenshot of the mesh in your write-up.
 </b>
@@ -432,7 +490,7 @@
 <p>
     YOUR RESPONSE GOES HERE
 </p>
-<br>
+<br> -->
 
 
 </body>

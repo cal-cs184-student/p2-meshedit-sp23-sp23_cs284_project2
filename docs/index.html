@@ -455,19 +455,40 @@
   As previously discussed, the loop subdivision technique results in a smoother and 
   more rounded object. This effect is evident in the cube.dae file, where even one 
   iteration of subdivision significantly reduces the mesh's volume. However, after 
-  multiple subdivisions, the resulting mesh becomes lumpy and uneven, mainly due to 
-  the asymmetrical edge splitting of the original cube mesh.
+  multiple subdivisions, the cube becomes slightly asymmetric after repeated subdivisions 
+  because the original mesh itself on the cube is set up asymmetrically. The asymmetry lies 
+  in the way that there is only one edge splitting each cube face. Our algorithm flattens vertices 
+  of higher degree more than those with lower degree, hence the asymmetric lump after multiple 
+  subdivisions.
 </p>
 <br>
+
+<table style="width:100%">
+  <tr align="center">
+    <td>
+      <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fa784bc46-a555-4e20-b61c-057f95f06dd5%2FUntitled.png?id=1af2de20-7f12-494f-81f8-f94407037085&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+      <figcaption align="middle">Split edges on all six faces of the cube to make original mesh symmetrical</figcaption>
+    </td>
+    <td>
+      <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fcf9c6522-3c0e-4998-b44b-cd8c2a2b8084%2FUntitled.png?id=38e135ed-bee5-455c-b113-4caf4aef6e57&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=2000&userId=&cache=v2" align="middle" width="400px"/>
+      <figcaption align="middle">Cube upsampled once</figcaption>
+    </td>
+    <td>
+      <img src="https://foil-valley-a41.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F5db16f6f-874c-42ff-bfc2-b3b084d21975%2FUntitled.png?id=7c998827-05c1-44a6-baa4-5dc126342108&table=block&spaceId=ff67df48-404c-4889-a983-fd4c22d51181&width=1920&userId=&cache=v2" align="middle" width="400px"/>
+      <figcaption align="middle">Cube upsampled four times</figcaption>
+    </td>
+  </tr>
+</table>
 
 
 <!-- <b>
     If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.
-</b>
+</b> -->
 <p>
-    YOUR RESPONSE GOES HERE
+  The uneveness and lumps can be alleviated by preprocessing the mesh by splitting all edges on the cube's faces as demonstrated below. 
+  Upsampling by our preprocessed cube mesh, we obtain a symmetric sphere-like structure.
 </p>
-<br> -->
+<br>
 
 
 <!-- <h3 align="middle">Part 7 (Optional, Possible Extra Credit)</h3>
